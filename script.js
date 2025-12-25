@@ -234,10 +234,16 @@ function showToast() {
 }
 
 /* ================= FILTER BUTTON ================= */
-document.getElementById("filterBtn")?.addEventListener("click", () => {
+
+
+document.getElementById("updateBtn").addEventListener("click", () => {
   renderDashboard();
 });
 
+document.getElementById("searchPatient").addEventListener("input", renderDashboard);
+document.getElementById("searchDoctor").addEventListener("input", renderDashboard);
+document.getElementById("fromDate").addEventListener("change", renderDashboard);
+document.getElementById("updateBtn").addEventListener("click", renderDashboard);
 /* ================= INIT ================= */
 generateCalendar(currentMonth, currentYear);
 renderDashboard();
@@ -246,3 +252,4 @@ renderDashboard();
 function toggleSidebar() {
   document.querySelector(".sidebar").classList.toggle("show");
 }
+
