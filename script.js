@@ -241,3 +241,8 @@ document.getElementById("filterBtn")?.addEventListener("click", () => {
 /* ================= INIT ================= */
 generateCalendar(currentMonth, currentYear);
 renderDashboard();
+
+
+function toggleSidebar() {
+  document.querySelector(".sidebar").classList.toggle("show");
+}
