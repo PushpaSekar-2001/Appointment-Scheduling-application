@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Appointment Scheduling</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+  <div class="logo">
+    <img src="assets/capminds.jpg" alt="CapMinds Logo">
+  </div>
+
+  <nav>
+    <a href="#" id="calendarBtn" class="active">📅 Calendar</a>
+    <a href="#" id="dashboardBtn">📋 Dashboard</a>
+  </nav>
+</aside>
+
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <header class="app-header">
+      <h1 id="pageTitle">Appointment Scheduling</h1>
+
+
+      <button id="openModalBtn" class="primary-btn">Book Appointment</button>
+    </header>
+
+    <!-- ================= CALENDAR SECTION ================= -->
+    <section class="calendar-section" id="calendarSection">
+
+      <div class="calendar-header">
+        <button id="prevMonth">‹</button>
+        <h2 id="monthYear"></h2>
+        <button id="nextMonth">›</button>
+      </div>
+
+      <div class="calendar-weekdays">
+        <div>Sun</div><div>Mon</div><div>Tue</div>
+        <div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+      </div>
+
+      <div class="calendar-grid" id="calendarGrid"></div>
+
+    </section>
+
+    <!-- ================= DASHBOARD SECTION ================= -->
+    <section class="dashboard-section" id="dashboardSection" style="display:none;">
+
+  <h2>Appointment Details</h2>
+
+  <!-- FILTERS -->
+ <div class="filters">
+  <input type="text" id="searchPatient" placeholder="🔍 Patient Search">
+  <input type="text" id="searchDoctor" placeholder="🔍 Doctor Search">
+  <input type="date" id="fromDate">
+  <input type="date" id="toDate">
+  <button class="primary-btn" id="filterBtn">Update</button>
+</div>
+
+
+  <!-- TABLE -->
+  <table class="appointment-table">
+    <thead>
+      <tr>
+        <th>Patient Name</th>
+        <th>Doctor</th>
+        <th>Hospital</th>
+        <th>specialty</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="appointmentTableBody">
+</tbody>
+  </table>
+
+</section>
+
+
+<!-- ================= MODAL ================= -->
+
+<div class="modal-overlay" id="modal">
+  <div class="modal-box large">
+
+    <div class="modal-header">
+      <h2>Schedule Appointment</h2>
+      <span class="close-btn" onclick="closeModal()">✕</span>
+    </div>
+
+    <form class="appointment-form">
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>Patient Name</label>
+          <input type="text" id="patientName" placeholder="Patient Name">
+        </div>
+
+        <div class="form-group">
+          <label>Doctor Name</label>
+          <input type="text" id="doctorName" placeholder="Doctor Name">
+        </div>
+
+        <div class="form-group">
+          <label>Hospital Name</label>
+          <input type="text" id="hospitalName" placeholder="Hospital Name">
+        </div>
+
+        <div class="form-group">
+          <label>specialty</label>
+          <input type="text" id="specialty" placeholder="specialty">
+        </div>
+
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" id="appointmentDate">
+        </div>
+
+        <div class="form-group">
+          <label>Time</label>
+          <input type="time" id="appointmentTime">
+        </div>
+
+      </div>
+
+      <div class="form-group full">
+        <label>Reason</label>
+        <textarea id="reason" placeholder="Reason for appointment"></textarea>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" onclick="closeModal()">Cancel</button>
+        <button type="button" id="saveBtn" class="primary-btn">Save</button>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+
+<!-- SUCCESS TOAST -->
+<div id="toast" class="toast">Appointment booked successfully ✅</div>
+<script src="script.js"></script>
+
+</body>
+</html>
