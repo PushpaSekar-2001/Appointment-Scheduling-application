@@ -155,16 +155,31 @@
 <div id="toast" class="toast">Appointment booked successfully ✅</div>
 
 <script>
-  function toggleSidebar() {
-    document.querySelector(".sidebar").classList.toggle("show");
-  }
+function toggleSidebar() {
+  document.querySelector(".sidebar").classList.toggle("show");
+  document.querySelector(".overlay").classList.toggle("show");
+}
+
+function closeSidebar() {
+  document.querySelector(".sidebar").classList.remove("show");
+  document.querySelector(".overlay").classList.remove("show");
+}
 </script>
+
+
+<div class="overlay" onclick="closeSidebar()"></div>
+
 </body>
 
 <script src="script.js"></script>
 
 </body>
 </html>
+
+
+
+
+
 
 
 
