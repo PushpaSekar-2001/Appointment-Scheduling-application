@@ -6,7 +6,7 @@ let currentYear = currentDate.getFullYear();
 
 /* ================= ELEMENTS ================= */
 const hospitalName = document.getElementById("hospitalName");
-const specialtyInput = document.getElementById("specialty"); // Make sure HTML input id="specialty"
+const specialtyInput = document.getElementById("specialty");
 const calendarGrid = document.getElementById("calendarGrid");
 const monthYear = document.getElementById("monthYear");
 
@@ -69,33 +69,41 @@ function generateCalendar(month, year, appts = appointments) {
 
   // Empty cells
   for (let i = 0; i < firstDay; i++) {
-    calendarGrid.appendChild(document.createElement("div"));
+    const empty = document.createElement("div");
+    empty.className = "calendar-day empty";
+    calendarGrid.appendChild(empty);
   }
 
   // Dates
   for (let day = 1; day <= daysInMonth; day++) {
     const dateStr = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+
     const cell = document.createElement("div");
-    cell.className = "date-cell";
+    cell.className = "calendar-day";
     cell.innerHTML = `<strong>${day}</strong>`;
 
-    const booked = appts.filter((a) => a.date === dateStr);
+    const booked = appts.filter(a => a.date === dateStr);
+
     if (booked.length > 0) {
+      cell.classList.add("booked");
+
       booked.forEach(appt => {
         const item = document.createElement("div");
-        item.className = "booked-bar";
+        item.className = "booking-info";
         item.innerHTML = `
-          <strong>${appt.patient}</strong><br>
-          ${appt.doctor}<br>
+          ${appt.patient}<br>
           ⏰ ${appt.time}
         `;
         cell.appendChild(item);
       });
     }
 
+    
     calendarGrid.appendChild(cell);
   }
 }
+
+
 
 /* ================= MONTH ARROWS ================= */
 document.getElementById("prevMonth").onclick = () => {
@@ -165,7 +173,6 @@ function renderDashboard() {
     });
   }
 
-  // Update calendar with filtered appointments
   generateCalendar(currentMonth, currentYear, filtered);
 }
 
@@ -218,8 +225,7 @@ saveBtn.onclick = () => {
 
   closeModal();
   showToast();
-  renderDashboard(); // Automatically updates table & calendar
-
+  renderDashboard(); 
   alert("Appointment successfully submitted ✅");
 };
 
@@ -249,7 +255,45 @@ generateCalendar(currentMonth, currentYear);
 renderDashboard();
 
 
-function toggleSidebar() {
-  document.querySelector(".sidebar").classList.toggle("show");
+function closeSidebar() {
+  document.querySelector(".sidebar").classList.remove("show");
 }
 
+// Modal
+function openModal() {
+  document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
+document.getElementById("openModalBtn").addEventListener("click", openModal);
+
+let startX = 0;
+let endX = 0;
+
+document.addEventListener("touchstart", function (e) {
+  startX = e.touches[0].clientX;
+});
+
+document.addEventListener("touchmove", function (e) {
+  endX = e.touches[0].clientX;
+});
+
+document.addEventListener("touchend", function () {
+  const sidebar = document.getElementById("sidebar");
+
+  
+  if (endX - startX > 80) {
+    sidebar.classList.add("show");
+  }
+
+ 
+  if (startX - endX > 80) {
+    sidebar.classList.remove("show");
+  }
+
+  startX = 0;
+  endX = 0;
+});
